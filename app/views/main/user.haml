@@ -1,0 +1,9 @@
+%table
+	-@json['comments'].each do |c|
+		%tr
+			%td=c['id']
+			%td=link_to truncate(c['body']), c['url']
+			%td=c['body'].length
+			%td=c['domain']['prefix']
+			%td=c['post']
+			%td=Time.at c['created'].to_i

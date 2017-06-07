@@ -1,0 +1,9 @@
+%table.table
+	%thead
+		%td Login
+		%td Avatar
+	%tbody
+		-list.each do |troll|
+			%tr
+				%td=link_to troll.login, app_troll_url(troll)
+				%td=troll.avatar_url ? image_tag(troll.avatar_url): ''

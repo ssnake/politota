@@ -1,0 +1,5 @@
+=form_tag app_trolls_path do
+	=text_field_tag :login
+	=submit_tag 'add'
+
+=render partial: 'shared/trolls_table', locals: {list: Troll.all}

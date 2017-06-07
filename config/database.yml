@@ -1,0 +1,29 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: postgresql
+  pool: 15
+  timeout: 5000
+  host: <%= ENV['POSTGRES_HOST'] || "localhost" %>
+  encoding: unicode
+  username: politota
+  password: politota
+
+development:
+  <<: *default
+  database: politota_dev
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: politota_test
+
+production:
+  <<: *default
+  database: politota_prod

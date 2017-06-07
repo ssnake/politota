@@ -1,0 +1,10 @@
+#all posts
+%table.table
+	-@json['posts'].each do |post|
+		%tr
+			%td=post['domain']['title']
+			%td=post['domain']['prefix']
+			%td=post['user']['id']
+			%td=link_to post['user']['login'], main_user_url(post['user']['login'])
+			%td=image_tag(post['user']['avatar_url'] || '', height: '32', width: '32')
+			%td=truncate(post['data']['title'])

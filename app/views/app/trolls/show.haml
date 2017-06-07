@@ -1,0 +1,13 @@
+/ =link_to 'Next',  app_troll_url(@troll, page: @json['page'].to_i+1)
+
+=render partial: 'shared/fetcher'
+%table.table.table-bordered.table-condensed.table-hover.datatable{data: {source: app_comments_index_path(format: 'json'), xcols: '[{"data": "0"}, {"data": "1"}, {"data": "2"},{"data": "3"}]', order: '[ [ 0, "desc" ]]', xcoldefs: '[{ "orderable": false, "targets": [] }]' } }
+	%thead
+		%th Date
+		%th Domain
+		%th Comment
+		%th Size
+	%tbody
+
+=render partial: 'shared/datatable'
+					

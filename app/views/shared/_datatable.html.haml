@@ -1,0 +1,24 @@
+-datatable = '.datatable'
+-datatable = selector if defined? selector
+:javascript
+
+	var table = $('#{datatable}').not('.initialized').addClass('initialized').DataTable( {
+		
+		autoWidth: false,
+	    serverSide: true,
+	    processing: true,
+	    paging: true,
+	    pagingType: "full_numbers",
+	    
+	    columns: $('#{datatable}').data('cols') || null,
+	    order:  $('#{datatable}').data('order') || [[ 1, 'asc' ]],
+	    columnDefs: $('#{datatable}').data('coldefs') || null,
+
+	    ajax: {
+	     url: $('#{datatable}').data('source'),
+	     type: "POST"
+	    }
+	} );
+
+
+		

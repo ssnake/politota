@@ -1,0 +1,16 @@
+-if @pad.done?
+	=button_to 'Fetch', app_troll_fetch_path(@troll)
+-else
+	=button_to 'Cancel', app_troll_cancel_path(@troll)
+#progress
+	="#{@pad.current}%"
+
+%table.table
+	%thead
+	%tbody
+		-(@pad.logs).each do |log|
+			%tr
+				%td=log[:id]
+				%td=log[:msg]
+
+	

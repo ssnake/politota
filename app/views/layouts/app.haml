@@ -1,0 +1,10 @@
+=render "layouts/application.html.erb" do
+	%nav.navbar.navbar-default
+		.container-fluid
+			.navbar-header
+				Politota
+		.collapse.navbar-collapse
+			%ul.nav.navbar-nav
+				%li=link_to 'main', app_index_path
+
+	=yield
