@@ -24,7 +24,7 @@ class CommentDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    Comment.all
+  	 options[:troll].comments
   end
 
   # ==== Insert 'presenter'-like methods below if necessary
