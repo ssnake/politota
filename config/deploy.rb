@@ -37,6 +37,7 @@ append :linked_files, "puma.conf"
 #append :linked_files, '.env'
 # set :pty, true
 # set :ssh_options, {:forward_agent => true}
+append :linked_files, '.env'
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/puma', 'tmp/sockets', 'public/system', 'certs'
 
 set :rails_env, 'production'

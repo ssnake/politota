@@ -1,25 +1,23 @@
 class CommentDatatable < AjaxDatatablesRails::Base
 	def_delegators :@view, :link_to, :h, :mailto
-  def sortable_columns
-    # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['Comment.id']
+	def view_columns
+    @view_columns ||= {
+      date: { source: "Comment.date" },
+      domain_prefix: { source: "Comment.domain_prefix" },
+      text: { source: "Comment.text"},
+      text_size: { source: "Comment.text_size" }
+    }
   end
-
-  def searchable_columns
-    # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= ['Comment.id']
-  end
-
   private
 
   def data
-    records.map do |c|
-      [
-        I18n.l(c.date),
-      	c.domain_prefix,
-      	link_to(c.text, c.url),
-      	c.text_size,
-      ]
+    records.map do |c| {
+      
+       date: I18n.l(c.date),
+      	domain_prefix: c.domain_prefix,
+      	text: link_to(c.text, c.url),
+      	text_size: c.text_size,
+      }
     end
   end
 
