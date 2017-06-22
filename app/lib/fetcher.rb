@@ -1,3 +1,4 @@
+require 'net/http'
 class Fetcher < ThreadsPad::Job
 	def initialize troll
 		@login = troll.login
@@ -14,29 +15,39 @@ class Fetcher < ThreadsPad::Job
 		while self.current < self.max do
 			self.current += 1
 			# debug "page #{self.current}"
-			body = Net::HTTP.get URI("https://d3.ru/api/users/#{@login}/comments/?page=#{self.current}")
+			begin
+				body = Net::HTTP.get URI("https://d3.ru/api/users/#{@login}/comments/?page=#{self.current}")
+				@json = JSON body
+				process @json['comments']
+			rescue Exception => e
+				debug "Error: #{e}"
+			end
 
-			@json = JSON body
-			process @json['comments']
+			
 			break if self.terminated?
 			self.max = @json['page_count']
 		end
 		debug "done"
-			
 	end
+
 	def process comments
 		comments.each do |c|
 			break if self.terminated?
-			Comment.find_or_create_by! comment_id: c['id'] do |record|
-				record.comment_id = c['id']
-				record.date = Time.at c['created']
-				record.domain_prefix = c['domain']['prefix']
-				record.url = "https://#{c['domain']['prefix']}.d3.ru/#{c['post']['url_slug']}-#{c['post']['id']}\##{c['id']}"
-				record.text_size = c['body'].length
-				record.text = c['body'][0, 20]
-				record.troll_id = @troll_id
-
+			begin
+				Comment.find_or_create_by! comment_id: c['id'] do |record|
+					record.comment_id = c['id']
+					record.date = Time.at c['created']
+					record.domain_prefix = c['domain']['prefix']
+					record.url = "https://#{c['domain']['prefix']}.d3.ru/#{c['post']['url_slug']}-#{c['post']['id']}\##{c['id']}"
+					record.text_size = c['body'].length
+					record.text = c['body'][0, 20]
+					record.troll_id = @troll_id				
+				end
+			
+			rescue Exception => e
+				debug "Error: #{e}"
 			end 
+				
 		end
 	end
 end
