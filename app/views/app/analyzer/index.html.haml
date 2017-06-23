@@ -1,0 +1,6 @@
+/ =form_tag app_analyzer_path do 
+/ 	=label_tag 'speed'
+/ 	=text_field_tag 'speed', 200
+/ 	=submit_tag 'Calc'
+
+=  column_chart @data, download: true 

@@ -2,9 +2,18 @@
 	%nav.navbar.navbar-default
 		.container-fluid
 			.navbar-header
+			%a.navbar-brand{href:"#"} 
 				Politota
-		.collapse.navbar-collapse
-			%ul.nav.navbar-nav
-				%li=link_to 'main', app_index_path
+				-if @troll.present?
+					="/#{@troll.login}"
+			.collapse.navbar-collapse
+				%ul.nav.navbar-nav
+					%li=link_to 'users', app_index_path
+				-if @troll.present?
+					%ul.nav.navbar-nav
+						%li=link_to 'Analyzer', app_analyzer_path(@troll)
+				
+
+			
 
 	=yield

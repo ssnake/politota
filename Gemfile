@@ -65,3 +65,4 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem "threads_pad", github: "ssnake/threads_pad"
 gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails'
+gem "chartkick"

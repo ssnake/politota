@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   get 'comment/index'
 
   get 'main/index'
@@ -16,6 +17,10 @@ Rails.application.routes.draw do
     end
     namespace :comments  do
     	post :index
+    end
+    namespace :analyzer do
+    	get '/:troll_id' =>'/app/analyzer#index'
+    	post '/:troll_id' =>'/app/analyzer#index'
     end
 
   end
